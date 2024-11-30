@@ -5,8 +5,8 @@ import api from "../utils/api";
 
 const TaskDetails = () => {
   const [task, setTask] = useState(null);
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track errors
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,15 +15,15 @@ const TaskDetails = () => {
   }, [id]);
 
   const fetchTask = async () => {
-    setLoading(true); // Start loading
-    setError(null); // Clear previous errors
+    setLoading(true);
+    setError(null);
     try {
       const response = await api.get(`/tasks/${id}`);
       setTask(response.data);
     } catch (error) {
-      setError("Error fetching task details."); // Set error message
+      setError("Error fetching task details.");
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -34,9 +34,9 @@ const TaskDetails = () => {
     if (confirmDelete) {
       try {
         await api.delete(`/tasks/${id}`);
-        navigate("/tasks"); // Navigate to tasks list after successful deletion
+        navigate("/tasks");
       } catch (error) {
-        setError("Error deleting task."); // Set error message if deletion fails
+        setError("Error deleting task.");
       }
     }
   };

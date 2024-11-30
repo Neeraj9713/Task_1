@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import api from "../utils/api"; // Assuming this is your axios instance or utility
+import api from "../utils/api"; 
 
 const TaskEdit = () => {
   const [task, setTask] = useState({
@@ -11,7 +11,7 @@ const TaskEdit = () => {
     priority: 'medium',
     assignedTo: '',
   });
-  const [error, setError] = useState(null); // State for error messages
+  const [error, setError] = useState(null); 
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -19,7 +19,6 @@ const TaskEdit = () => {
     fetchTask();
   }, [id]);
 
-  // Fetch task details for editing
   const fetchTask = async () => {
     try {
       const response = await api.get(`/tasks/${id}`);
@@ -30,13 +29,12 @@ const TaskEdit = () => {
     }
   };
 
-  // Handle input changes for form fields
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
 
-  // Handle form submission for updating the task
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting task:", task);
@@ -49,8 +47,7 @@ const TaskEdit = () => {
     try {
       const response = await api.patch(`/tasks/${task._id}`, task);
       console.log("Task updated:", response.data);
-      // Redirect or do something else after the update, e.g., navigate back or show success message
-      navigate("/tasks"); // Example: Redirect back to the tasks list
+      navigate("/tasks");
     } catch (error) {
       console.error("Error updating task:", error);
       setError("Error updating task.");
@@ -61,7 +58,7 @@ const TaskEdit = () => {
     <div className="w-96 mx-auto p-6 bg-[#fafafa] shadow-lg rounded-md">
       <h2 className="text-2xl font-semibold text-[#2c3e50] mb-6">Edit Task</h2>
       
-      {error && <div className="text-red-500 mb-4">{error}</div>} {/* Show error if any */}
+      {error && <div className="text-red-500 mb-4">{error}</div>} {"Error from Task"}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

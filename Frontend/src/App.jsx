@@ -6,8 +6,8 @@ import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 import TaskDetails from "./components/TaskDetails";
 import Header from "./components/Header";
-import EditTask from "./components/TaskEdit"; 
-import { Navigate } from "react-router-dom"; // Import Navigate
+import EditTask from "./components/TaskEdit";
+import { Navigate } from "react-router-dom";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,8 +16,6 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Verify token and set authentication state
-      // You would typically make an API call to verify the token
       setIsAuthenticated(true);
     }
   }, []);
@@ -69,9 +67,11 @@ const App = () => {
                 isAuthenticated ? <TaskDetails /> : <Navigate to="/login" />
               }
             />
-              <Route
+            <Route
               path="/tasks/:id/edit"
-              element={isAuthenticated ? <EditTask /> : <Navigate to="/login" />}
+              element={
+                isAuthenticated ? <EditTask /> : <Navigate to="/login" />
+              }
             />
           </Routes>
         </div>
